@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Seasonal demand and publishing lead time report",
+  "type": "object",
+  "required": [
+    "skill",
+    "status",
+    "scope",
+    "evidence",
+    "findings",
+    "cost",
+    "unknowns",
+    "next_action"
+  ],
+  "properties": {
+    "skill": {
+      "const": "koala-seasonal-content"
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "blocked",
+        "pending",
+        "needs-approval"
+      ]
+    },
+    "scope": {
+      "type": "object"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "reference",
+          "kind",
+          "observed_at"
+        ],
+        "properties": {
+          "reference": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "measured",
+              "provider-estimate",
+              "source-content",
+              "model-judgment",
+              "execution-receipt",
+              "read-back",
+              "synthetic-fixture"
+            ]
+          },
+          "observed_at": {
+            "type": "string"
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "cost": {
+      "type": "object",
+      "description": "Distinguish actual observed usage, local reservations and unknown server charges."
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_action": {
+      "type": "string"
+    }
+  }
+}

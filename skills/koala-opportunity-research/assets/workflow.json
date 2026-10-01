@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "skill": "koala-opportunity-research",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 30,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "get_brand_profile",
+    "get_brand_knowledge",
+    "list_article_tasks",
+    "get_gsc_top_queries",
+    "get_sitemap",
+    "discover_domain_keywords",
+    "get_related_keywords",
+    "get_keyword_variations",
+    "get_autocomplete",
+    "get_keyword_volume",
+    "check_keyword_coverage",
+    "search_google_serp",
+    "get_page_content"
+  ],
+  "required_outputs": [
+    "Intent-level shortlist",
+    "Existing and planned overlap matrix",
+    "Refresh/new/hold decision per intent",
+    "Evidence and uncertainty",
+    "Bounded production handoff"
+  ],
+  "stop_conditions": [
+    "Missing analytics \u2192 state that limitation and use public estimates separately; never call them measured traffic.",
+    "Coverage partial or ambiguous \u2192 inspect existing content before recommending replacement or another URL.",
+    "No useful new evidence after two expansions \u2192 stop; do not exhaust the credit ceiling searching for justification."
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "skill": "koala-competitor-analysis",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 3,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_competitor_domains",
+    "get_ranking_keywords",
+    "get_keyword_gap",
+    "get_estimated_top_pages",
+    "get_traffic_overview",
+    "get_historical_traffic",
+    "get_domain_authority",
+    "get_backlink_gap",
+    "check_keyword_coverage",
+    "search_google_serp",
+    "get_page_content"
+  ],
+  "required_outputs": [
+    "Comparable competitor matrix",
+    "Cluster-level advantage analysis",
+    "Ranking gap versus content gap",
+    "Optional link opportunities",
+    "Three evidence-backed next actions"
+  ],
+  "stop_conditions": [
+    "Competitor has a different business model \u2192 retain as a SERP competitor but qualify commercial conclusions.",
+    "Provider data is missing or stale \u2192 avoid claims of zero rankings/traffic and flag comparison limits.",
+    "No evidence that more pages help \u2192 recommend hold or improve an existing intent owner, not imitation at scale."
+  ]
+}

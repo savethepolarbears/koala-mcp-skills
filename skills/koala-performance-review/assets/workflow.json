@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "skill": "koala-performance-review",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 10,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "get_gsc_search_performance",
+    "get_gsc_top_queries",
+    "get_gsc_top_pages",
+    "get_gsc_query_performance",
+    "get_gsc_page_performance",
+    "get_ga4_top_pages",
+    "get_ga4_traffic_sources",
+    "get_ga4_audience_overview",
+    "get_ga4_page_performance"
+  ],
+  "required_outputs": [
+    "Reproducible periods and filters",
+    "Measured metric comparison",
+    "Cohort and intervention evidence",
+    "Confounders and missing data",
+    "Continue/change/stop decision"
+  ],
+  "stop_conditions": [
+    "No GA4 or GSC connection \u2192 mark unavailable, not zero.",
+    "One period is incomplete or filters differ \u2192 fix comparison or mark not comparable.",
+    "Clicks increase after a rewrite \u2192 do not attribute the entire gain to the rewrite."
+  ]
+}

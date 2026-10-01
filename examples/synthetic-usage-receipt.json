@@ -1,0 +1,9 @@
+{
+  "tool": "get_usage",
+  "outcome": "success",
+  "data": {
+    "synthetic_fixture": true,
+    "platform_credits": 100,
+    "writer_words": 10000
+  }
+}

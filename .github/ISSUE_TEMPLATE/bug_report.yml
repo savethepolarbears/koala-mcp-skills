@@ -1,0 +1,31 @@
+name: Bug report
+description: Report a reproducible packaging, workflow or guard defect.
+title: "[Bug]: "
+body:
+  - type: input
+    id: environment
+    attributes:
+      label: Host and versions
+      description: Client, OS, Python and pack version. No credentials or account IDs.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Use a synthetic plan or scrubbed tool-definition difference.
+    validations:
+      required: true
+  - type: textarea
+    id: expectation
+    attributes:
+      label: Expected versus observed behavior
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I removed tokens, private URLs, actual brand IDs and customer data.
+          required: true

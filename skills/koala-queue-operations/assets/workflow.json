@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "skill": "koala-queue-operations",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 4,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "list_recent_articles",
+    "list_article_tasks",
+    "get_article_status",
+    "get_article_content"
+  ],
+  "required_outputs": [
+    "Job identity resolution",
+    "Observed status timeline",
+    "Queue versus generation distinction",
+    "Recovered receipt or ambiguity",
+    "Safe resume instructions"
+  ],
+  "stop_conditions": [
+    "No match \u2192 stop with identity unresolved, not a fresh create call.",
+    "More than one plausible match \u2192 report candidates for disambiguation without picking the newest blindly.",
+    "A generated article exists but no CMS evidence \u2192 report only the saved article state."
+  ]
+}

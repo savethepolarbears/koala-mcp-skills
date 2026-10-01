@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "skill": "koala-onpage-audit",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 3,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "get_page_content",
+    "get_page_html",
+    "analyze_page",
+    "screenshot_page",
+    "get_sitemap"
+  ],
+  "required_outputs": [
+    "Evidence-cited issue table",
+    "Critical versus optional changes",
+    "Exact proposed edits",
+    "Completeness limits",
+    "Verification checklist"
+  ],
+  "stop_conditions": [
+    "Changed contentHash during continuation \u2192 restart from offset zero or stop; never join versions.",
+    "JavaScript-loaded detail absent in raw HTML \u2192 use rendered text/visual evidence and label the limitation.",
+    "A small sitemap sample has no matching URL \u2192 do not call the page orphaned or unindexed."
+  ]
+}

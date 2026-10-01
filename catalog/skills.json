@@ -1,0 +1,403 @@
+{
+  "version": "0.1.0",
+  "skills": [
+    {
+      "name": "koala-core",
+      "title": "Koala operating contract and router",
+      "description": "Use when a request broadly involves Koala MCP, several Koala workflows, budgeted agent loops, or shared safety and evidence rules.",
+      "tools": [
+        "get_usage",
+        "list_brands",
+        "get_brand_profile",
+        "list_writer_presets"
+      ],
+      "limit": 10
+    },
+    {
+      "name": "koala-connect",
+      "title": "Connection and capability preflight",
+      "description": "Use when connecting Koala MCP, diagnosing missing Koala tools, choosing capability permissions, or checking whether a host can use the server.",
+      "tools": [
+        "get_usage",
+        "list_brands",
+        "get_brand_profile",
+        "list_writer_presets"
+      ],
+      "limit": 3
+    },
+    {
+      "name": "koala-budget",
+      "title": "Credit and Writer allowance planner",
+      "description": "Use when estimating Koala research costs, checking remaining allowances, allocating a batch budget, or limiting a repeatable marketing agent run.",
+      "tools": [
+        "get_usage",
+        "get_brand_profile",
+        "list_writer_presets",
+        "list_article_tasks"
+      ],
+      "limit": 20
+    },
+    {
+      "name": "koala-brand-audit",
+      "title": "Brand context and knowledge audit",
+      "description": "Use when auditing Brand DNA, improving brand documentation, checking writing defaults, or preventing facts and voice from leaking between clients.",
+      "tools": [
+        "list_brands",
+        "get_brand_profile",
+        "get_brand_knowledge",
+        "list_writer_presets",
+        "list_article_tasks",
+        "get_page_content"
+      ],
+      "limit": 5
+    },
+    {
+      "name": "koala-opportunity-research",
+      "title": "Research worthwhile content opportunities",
+      "description": "Use when choosing topics, finding keyword opportunities, avoiding cannibalization, or deciding between refreshing a page and creating new content.",
+      "tools": [
+        "get_usage",
+        "get_brand_profile",
+        "get_brand_knowledge",
+        "list_article_tasks",
+        "get_gsc_top_queries",
+        "get_sitemap",
+        "discover_domain_keywords",
+        "get_related_keywords",
+        "get_keyword_variations",
+        "get_autocomplete",
+        "get_keyword_volume",
+        "check_keyword_coverage",
+        "search_google_serp",
+        "get_page_content"
+      ],
+      "limit": 30
+    },
+    {
+      "name": "koala-content-plan",
+      "title": "Evidence-backed editorial calendar proposal",
+      "description": "Use when planning the next content batch, deciding what to publish over a period, or turning an opportunity shortlist into an editorial calendar without executing it.",
+      "tools": [
+        "get_brand_profile",
+        "get_brand_knowledge",
+        "list_writer_presets",
+        "list_article_tasks",
+        "get_gsc_top_pages",
+        "check_keyword_coverage",
+        "get_keyword_volume"
+      ],
+      "limit": 10
+    },
+    {
+      "name": "koala-content-decay",
+      "title": "First-party content decay investigation",
+      "description": "Use when pages lose clicks or impressions, rankings stall, or a publisher asks what declined over a comparable reporting period.",
+      "tools": [
+        "get_gsc_search_performance",
+        "get_gsc_top_pages",
+        "get_gsc_top_queries",
+        "get_gsc_page_performance",
+        "get_gsc_query_performance",
+        "get_gsc_indexing_status",
+        "get_ga4_page_performance",
+        "search_google_serp",
+        "get_page_content"
+      ],
+      "limit": 5
+    },
+    {
+      "name": "koala-competitor-analysis",
+      "title": "Competitor advantage and gap analysis",
+      "description": "Use when comparing a domain with search competitors, explaining a competitor\u2019s advantage, or prioritizing keyword and backlink gaps.",
+      "tools": [
+        "get_competitor_domains",
+        "get_ranking_keywords",
+        "get_keyword_gap",
+        "get_estimated_top_pages",
+        "get_traffic_overview",
+        "get_historical_traffic",
+        "get_domain_authority",
+        "get_backlink_gap",
+        "check_keyword_coverage",
+        "search_google_serp",
+        "get_page_content"
+      ],
+      "limit": 3
+    },
+    {
+      "name": "koala-article-production",
+      "title": "Approved brief to verified Koala article",
+      "description": "Use when the user explicitly requests a complete KoalaWriter article from an approved topic or brief, not when merely researching or planning content.",
+      "tools": [
+        "get_usage",
+        "get_brand_profile",
+        "get_brand_knowledge",
+        "list_writer_presets",
+        "list_article_tasks",
+        "list_recent_articles",
+        "check_keyword_coverage",
+        "create_article_in_koala_writer",
+        "get_article_status",
+        "get_article_content"
+      ],
+      "limit": 1
+    },
+    {
+      "name": "koala-page-refresh",
+      "title": "Existing-page rescue and refresh brief",
+      "description": "Use when improving an existing URL, rescuing a page near page one, correcting stale content, or refreshing a page without creating a competing URL.",
+      "tools": [
+        "get_gsc_page_performance",
+        "get_gsc_query_performance",
+        "get_gsc_indexing_status",
+        "get_page_content",
+        "get_page_html",
+        "search_google_serp",
+        "check_keyword_coverage",
+        "get_brand_profile",
+        "get_brand_knowledge",
+        "create_article_in_koala_writer",
+        "get_article_status",
+        "get_article_content",
+        "edit_article"
+      ],
+      "limit": 1
+    },
+    {
+      "name": "koala-editorial-qa",
+      "title": "Evidence-first editorial acceptance loop",
+      "description": "Use when reviewing a Koala article, checking factual/brand quality, applying bounded editorial feedback, or deciding whether a draft is ready for human publication review.",
+      "tools": [
+        "get_article_status",
+        "get_article_content",
+        "get_brand_profile",
+        "get_brand_knowledge",
+        "get_page_content",
+        "get_page_html",
+        "edit_article"
+      ],
+      "limit": 2
+    },
+    {
+      "name": "koala-queue-operations",
+      "title": "Queue recovery and safe resumption",
+      "description": "Use when Koala writing appears stuck, an article ID was lost, a connection ended while generating, or duplicate jobs may have been queued.",
+      "tools": [
+        "get_usage",
+        "list_recent_articles",
+        "list_article_tasks",
+        "get_article_status",
+        "get_article_content"
+      ],
+      "limit": 4
+    },
+    {
+      "name": "koala-calendar-operations",
+      "title": "Approved scheduling, rescheduling and cancellation",
+      "description": "Use when the user explicitly authorizes adding, changing or cancelling Koala scheduled article tasks, including resolving a partial batch result.",
+      "tools": [
+        "get_usage",
+        "get_brand_profile",
+        "list_writer_presets",
+        "list_article_tasks",
+        "schedule_articles",
+        "update_scheduled_articles",
+        "remove_scheduled_articles"
+      ],
+      "limit": 10
+    },
+    {
+      "name": "koala-onpage-audit",
+      "title": "Evidence-first on-page audit",
+      "description": "Use when a public webpage needs an on-page, canonical, metadata, schema or visible-layout audit without changing the site.",
+      "tools": [
+        "get_usage",
+        "get_page_content",
+        "get_page_html",
+        "analyze_page",
+        "screenshot_page",
+        "get_sitemap"
+      ],
+      "limit": 3
+    },
+    {
+      "name": "koala-internal-links",
+      "title": "Internal-link opportunity map",
+      "description": "Use when finding relevant internal links, mapping topic clusters, or proposing links to support an existing article.",
+      "tools": [
+        "get_usage",
+        "get_sitemap",
+        "get_page_content",
+        "get_gsc_top_pages",
+        "get_gsc_page_performance",
+        "check_keyword_coverage"
+      ],
+      "limit": 10
+    },
+    {
+      "name": "koala-ai-visibility",
+      "title": "Sampled Google AI Overview visibility",
+      "description": "Use when checking Google AI Overview citations, citation readiness, AI-crawler declarations, or competitor citation gaps.",
+      "tools": [
+        "get_usage",
+        "get_google_ai_overview_presence",
+        "compare_google_ai_overview_citations",
+        "get_ai_search_opportunities",
+        "audit_page_citation_readiness",
+        "check_ai_crawler_robots_rules",
+        "search_brand_mentions",
+        "get_page_content"
+      ],
+      "limit": 5
+    },
+    {
+      "name": "koala-link-prospecting",
+      "title": "Qualified backlink prospecting",
+      "description": "Use when researching referring domains, lost or broken links, backlink gaps, anchor patterns, or a manual outreach shortlist.",
+      "tools": [
+        "get_usage",
+        "get_backlink_summary",
+        "get_referring_domains",
+        "get_backlink_list",
+        "get_anchor_texts",
+        "get_backlink_gap",
+        "get_domain_authority",
+        "get_page_content"
+      ],
+      "limit": 20
+    },
+    {
+      "name": "koala-prospect-audit",
+      "title": "Public-domain prospect audit",
+      "description": "Use when evaluating an agency prospect, acquisition lead or unfamiliar domain using public search and page evidence.",
+      "tools": [
+        "get_usage",
+        "get_traffic_overview",
+        "get_historical_traffic",
+        "get_domain_authority",
+        "get_ranking_keywords",
+        "get_estimated_top_pages",
+        "get_competitor_domains",
+        "get_google_ai_overview_presence",
+        "get_page_content"
+      ],
+      "limit": 1
+    },
+    {
+      "name": "koala-affiliate-research",
+      "title": "Evidence-backed affiliate product research",
+      "description": "Use when researching an Amazon roundup, product comparison or single-product article with accurate product identity and attributed evidence.",
+      "tools": [
+        "get_usage",
+        "amazon_search",
+        "amazon_product_details",
+        "get_page_content",
+        "search_google_serp",
+        "check_keyword_coverage",
+        "get_keyword_volume"
+      ],
+      "limit": 5
+    },
+    {
+      "name": "koala-seasonal-content",
+      "title": "Seasonal demand and publishing lead time",
+      "description": "Use when planning seasonal topics, comparing Google and Pinterest trends, or choosing when to refresh and publish ahead of demand.",
+      "tools": [
+        "get_usage",
+        "get_google_trends",
+        "get_pinterest_trends",
+        "get_keyword_volume",
+        "get_related_keywords",
+        "check_keyword_coverage",
+        "list_article_tasks",
+        "get_gsc_query_performance"
+      ],
+      "limit": 5
+    },
+    {
+      "name": "koala-video-to-article",
+      "title": "Rights-aware video-to-article preparation",
+      "description": "Use when turning a supplied YouTube video into an article or researching video evidence for a content brief.",
+      "tools": [
+        "get_usage",
+        "search_youtube",
+        "get_youtube_captions",
+        "get_page_content",
+        "check_keyword_coverage",
+        "create_article_in_koala_writer",
+        "get_article_status",
+        "get_article_content"
+      ],
+      "limit": 1
+    },
+    {
+      "name": "koala-image-briefs",
+      "title": "Approved image briefs and generation",
+      "description": "Use when preparing or generating KoalaImages assets for a social post, Pinterest pin, advertisement or supporting illustration.",
+      "tools": [
+        "get_usage",
+        "get_brand_profile",
+        "get_brand_knowledge",
+        "generate_image"
+      ],
+      "limit": 1
+    },
+    {
+      "name": "koala-performance-review",
+      "title": "Measured performance and experiment review",
+      "description": "Use when evaluating content changes with connected Search Console and Analytics, comparing periods, or checking whether an intervention helped.",
+      "tools": [
+        "get_usage",
+        "get_gsc_search_performance",
+        "get_gsc_top_queries",
+        "get_gsc_top_pages",
+        "get_gsc_query_performance",
+        "get_gsc_page_performance",
+        "get_ga4_top_pages",
+        "get_ga4_traffic_sources",
+        "get_ga4_audience_overview",
+        "get_ga4_page_performance"
+      ],
+      "limit": 10
+    },
+    {
+      "name": "koala-portfolio-loop",
+      "title": "Bounded multi-brand content operations loop",
+      "description": "Use when coordinating several brands or repeating evidence-to-action content workflows across a portfolio with shared account budgets.",
+      "tools": [
+        "get_usage",
+        "list_brands",
+        "get_brand_profile",
+        "get_brand_knowledge",
+        "list_writer_presets",
+        "list_article_tasks",
+        "get_gsc_search_performance",
+        "get_ga4_top_pages"
+      ],
+      "limit": 10
+    },
+    {
+      "name": "koala-schema-watch",
+      "title": "Beta contract and capability drift review",
+      "description": "Use when Koala tools appear changed, an argument stops working, a beta update arrives, or the tool catalogue needs verification.",
+      "tools": [
+        "get_usage"
+      ],
+      "limit": 1
+    },
+    {
+      "name": "koala-indexing",
+      "title": "Verified URL indexing inspection and submission",
+      "description": "Use when inspecting Google indexing state or when the user explicitly requests submission of specific URLs on a connected property.",
+      "tools": [
+        "get_usage",
+        "get_brand_profile",
+        "get_gsc_indexing_status",
+        "request_indexing",
+        "get_page_content",
+        "get_page_html"
+      ],
+      "limit": 20
+    }
+  ]
+}

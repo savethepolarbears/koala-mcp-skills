@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "skill": "koala-seasonal-content",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 5,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "get_google_trends",
+    "get_pinterest_trends",
+    "get_keyword_volume",
+    "get_related_keywords",
+    "check_keyword_coverage",
+    "list_article_tasks",
+    "get_gsc_query_performance"
+  ],
+  "required_outputs": [
+    "Seasonal demand evidence",
+    "Google/Pinterest distinction",
+    "Refresh-versus-new decisions",
+    "Preparation and review dates",
+    "Unsheduled calendar proposal"
+  ],
+  "stop_conditions": [
+    "Trend surge driven by an unrelated meaning \u2192 inspect query intent and exclude it.",
+    "No year-over-year evidence \u2192 label a seasonal hypothesis, not a proven pattern.",
+    "Deadline cannot fit review capacity \u2192 reduce output rather than remove review."
+  ]
+}

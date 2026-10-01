@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "skill": "koala-ai-visibility",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 5,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "get_google_ai_overview_presence",
+    "compare_google_ai_overview_citations",
+    "get_ai_search_opportunities",
+    "audit_page_citation_readiness",
+    "check_ai_crawler_robots_rules",
+    "search_brand_mentions",
+    "get_page_content"
+  ],
+  "required_outputs": [
+    "Query-level citation observations",
+    "Sample and market limitations",
+    "Separate readiness findings",
+    "Crawler-specific declared rules",
+    "Prioritized evidence-backed improvements"
+  ],
+  "stop_conditions": [
+    "No overview in a sample \u2192 do not report zero visibility across ChatGPT, Claude or Google overall.",
+    "Requested locale cannot be controlled by a tool \u2192 disclose it and avoid false like-for-like comparisons.",
+    "Robots allows a bot \u2192 do not conclude its requests pass the CDN/firewall."
+  ]
+}

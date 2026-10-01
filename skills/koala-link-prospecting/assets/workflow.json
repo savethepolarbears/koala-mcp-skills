@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "skill": "koala-link-prospecting",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 20,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "get_backlink_summary",
+    "get_referring_domains",
+    "get_backlink_list",
+    "get_anchor_texts",
+    "get_backlink_gap",
+    "get_domain_authority",
+    "get_page_content"
+  ],
+  "required_outputs": [
+    "Qualified prospects and source URLs",
+    "Relevant context and link status",
+    "Metric provenance",
+    "Outreach angles, not sent mail",
+    "Rejected prospects and reasons"
+  ],
+  "stop_conditions": [
+    "Provider lists a link but source cannot be read \u2192 mark unverified, not confirmed live.",
+    "High authority but irrelevant context \u2192 exclude or deprioritize.",
+    "User asks to email everyone \u2192 this skill returns drafts; do not invent a sending tool."
+  ]
+}

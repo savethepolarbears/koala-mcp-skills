@@ -1,0 +1,13 @@
+{
+  "tool": "get_sitemap",
+  "outcome": "success",
+  "data": {
+    "synthetic_fixture": true,
+    "slugs": [
+      "/rain-garden",
+      "/soil"
+    ],
+    "returnedSlugCount": 2,
+    "limit": 100
+  }
+}

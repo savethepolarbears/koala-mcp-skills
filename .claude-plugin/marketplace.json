@@ -1,0 +1,13 @@
+{
+  "name": "koala-mcp-skills",
+  "owner": {
+    "name": "Koala MCP Skills contributors"
+  },
+  "plugins": [
+    {
+      "name": "koala-mcp-skills",
+      "source": "./",
+      "description": "Evidence-first Koala MCP workflows with bounded loops, budget checks and publication-aware approvals."
+    }
+  ]
+}

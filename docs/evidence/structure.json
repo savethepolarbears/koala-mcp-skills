@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "errors": [],
+  "skills": 26,
+  "reviewed_tools": 62,
+  "non_core_tool_coverage": 62,
+  "tool_cards": 62,
+  "host_agent_scenarios_not_run": 52,
+  "local_links_checked": 340,
+  "skill_discovery_metadata_characters": 4035,
+  "notice": "Offline structural checks, not full external JSON Schema validation, live host loading or model-behavior evaluation."
+}

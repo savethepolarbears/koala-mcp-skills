@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "skill": "koala-image-briefs",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 1,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "get_brand_profile",
+    "get_brand_knowledge",
+    "generate_image"
+  ],
+  "required_outputs": [
+    "Approved image brief",
+    "Cost/permission record",
+    "Generation receipt and asset URL",
+    "Visual inspection outcome",
+    "Placement handoff, not publication"
+  ],
+  "stop_conditions": [
+    "No image-generation approval \u2192 return the brief only.",
+    "Result URL exists but image is not readable yet \u2192 preserve the receipt and stop pending.",
+    "Requested exact text is misspelled in the asset \u2192 mark revision needed; no automatic unlimited regeneration."
+  ]
+}

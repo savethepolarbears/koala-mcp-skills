@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "skill": "koala-prospect-audit",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 1,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "get_traffic_overview",
+    "get_historical_traffic",
+    "get_domain_authority",
+    "get_ranking_keywords",
+    "get_estimated_top_pages",
+    "get_competitor_domains",
+    "get_google_ai_overview_presence",
+    "get_page_content"
+  ],
+  "required_outputs": [
+    "Business/context evidence",
+    "Estimated search footprint",
+    "Three prioritized opportunities",
+    "Risks and unknowns",
+    "Questions for the prospect"
+  ],
+  "stop_conditions": [
+    "No connected property \u2192 no claim to know measured traffic.",
+    "Unclear business or market \u2192 mark assumptions and narrow the conclusion.",
+    "Missing estimate \u2192 unknown, not zero or a failed business."
+  ]
+}

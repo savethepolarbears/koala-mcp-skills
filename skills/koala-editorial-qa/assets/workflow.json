@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "skill": "koala-editorial-qa",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 2,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_article_status",
+    "get_article_content",
+    "get_brand_profile",
+    "get_brand_knowledge",
+    "get_page_content",
+    "get_page_html",
+    "edit_article"
+  ],
+  "required_outputs": [
+    "Acceptance verdict",
+    "Blockers separated from polish",
+    "Claim/source ledger",
+    "Edit/read-back receipts and before/after hash",
+    "Human review handoff"
+  ],
+  "stop_conditions": [
+    "No factual proof for a claim \u2192 remove/qualify it or hold the draft, not smooth it into convincing prose.",
+    "Concurrent edit rejected \u2192 read current state and reconcile before another approved edit.",
+    "Edit improves tone but removes useful specifics \u2192 preserve the evidence-backed original and stop regression."
+  ]
+}

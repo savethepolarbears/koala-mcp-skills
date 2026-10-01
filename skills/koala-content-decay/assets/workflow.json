@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "skill": "koala-content-decay",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 5,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_gsc_search_performance",
+    "get_gsc_top_pages",
+    "get_gsc_top_queries",
+    "get_gsc_page_performance",
+    "get_gsc_query_performance",
+    "get_gsc_indexing_status",
+    "get_ga4_page_performance",
+    "search_google_serp",
+    "get_page_content"
+  ],
+  "required_outputs": [
+    "Comparable-period specification",
+    "Measured page-loss table",
+    "Observation versus hypothesis ledger",
+    "Top five actions",
+    "Follow-up measurement criteria"
+  ],
+  "stop_conditions": [
+    "Search Console disconnected \u2192 block the measured-decay claim. A public estimated-traffic trend is a different analysis.",
+    "Low-volume or partial data \u2192 report uncertainty and absolute changes; do not overreact to large percentages.",
+    "Loss appears across unrelated pages \u2192 investigate site-wide measurement/indexation before generating page-level rewrites."
+  ]
+}

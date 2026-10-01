@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "run_id": "synthetic-read-pass-001",
+  "budget_group": "synthetic-account-cycle",
+  "scope": {
+    "brand_id": null,
+    "domain": "example.com",
+    "account_ref": "synthetic-account"
+  },
+  "mode": "read-only",
+  "limits": {
+    "platform_credits": "1",
+    "writer_words": 0,
+    "max_calls": 10
+  },
+  "actions": [
+    {
+      "id": "usage",
+      "tool": "get_usage",
+      "arguments": {},
+      "depends_on": []
+    },
+    {
+      "id": "inventory",
+      "tool": "get_sitemap",
+      "arguments": {
+        "domain": "example.com",
+        "limit": 100
+      },
+      "depends_on": [
+        "usage"
+      ]
+    }
+  ]
+}

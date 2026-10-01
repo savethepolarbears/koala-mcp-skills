@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "skill": "koala-article-production",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 1,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "get_brand_profile",
+    "get_brand_knowledge",
+    "list_writer_presets",
+    "list_article_tasks",
+    "list_recent_articles",
+    "check_keyword_coverage",
+    "create_article_in_koala_writer",
+    "get_article_status",
+    "get_article_content"
+  ],
+  "required_outputs": [
+    "Approved settings and delivery evidence",
+    "Stable operation key and article ID",
+    "Queue/status receipt",
+    "Retrieved draft and QA findings",
+    "Verified state or precise pending/blocker state"
+  ],
+  "stop_conditions": [
+    "Dropped connection without an ID \u2192 inspect recent articles and calendar before retrying. An ambiguous match is a blocker, not permission to create another job.",
+    "Unknown integration/preset override \u2192 block creation. A brand-connected draft is not equivalent to no upload.",
+    "Queue still running at the bound \u2192 save ID and return pending. No completion-time promise and no background-monitoring claim."
+  ]
+}

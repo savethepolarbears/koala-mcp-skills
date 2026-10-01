@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "skill": "koala-brand-audit",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 5,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "list_brands",
+    "get_brand_profile",
+    "get_brand_knowledge",
+    "list_writer_presets",
+    "list_article_tasks",
+    "get_page_content"
+  ],
+  "required_outputs": [
+    "Five supplemental knowledge documents",
+    "Claim/proof ledger",
+    "Defaults and integration findings",
+    "Keep/change/confirm decisions",
+    "Manual application instructions"
+  ],
+  "stop_conditions": [
+    "Official page conflicts with saved knowledge \u2192 label the conflict and obtain an authoritative resolution; do not silently reconcile.",
+    "No brand knowledge available \u2192 produce a gaps checklist and bounded evidence requests, not invented brand positioning.",
+    "Multiple integrations/presets \u2192 record each effective destination separately."
+  ]
+}

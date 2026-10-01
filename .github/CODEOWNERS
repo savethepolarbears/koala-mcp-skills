@@ -1,0 +1,15 @@
+# Code owners for koala-mcp-skills
+
+# Default owner for entire repository
+* @savethepolarbears
+
+# Critical security, verification scripts, and GitHub Actions
+/.github/ @savethepolarbears
+/scripts/ @savethepolarbears
+
+# Core policy, budget calculations, and security boundaries
+/skills/koala-core/ @savethepolarbears
+
+# Specifications, contracts, and benchmarks
+/catalog/ @savethepolarbears
+/benchmarks/ @savethepolarbears

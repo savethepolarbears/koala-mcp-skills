@@ -1,0 +1,16 @@
+{
+  "archive_name": "koala-mcp-skills-candidate.zip",
+  "checks": {
+    "member_hashes_verified": 257,
+    "extracted_suite_passed": true,
+    "unit_tests": 93,
+    "extracted_offline_demo": true,
+    "isolated_global_installations": 104,
+    "standalone_copied_core": true,
+    "repeat_install_idempotent": true,
+    "clean_uninstall": true
+  },
+  "host_applications_launched": false,
+  "live_mcp_calls": 0,
+  "passed": true
+}

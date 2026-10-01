@@ -1,0 +1,605 @@
+{
+  "schema_version": 1,
+  "simulation_only": true,
+  "cases": [
+    {
+      "id": "free-read",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "allow",
+      "plan": {
+        "version": 1,
+        "run_id": "free-read",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": null,
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "0",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "get_usage",
+            "arguments": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "paid-without-budget",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "block",
+      "plan": {
+        "version": 1,
+        "run_id": "paid-without-budget",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": null,
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "0",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "get_sitemap",
+            "arguments": {
+              "domain": "example.com"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "fractional-budget-exact",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "allow",
+      "plan": {
+        "version": 1,
+        "run_id": "fractional-budget-exact",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": null,
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "0.1",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "get_page_html",
+            "arguments": {
+              "url": "https://example.com"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "fractional-budget-too-small",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "block",
+      "plan": {
+        "version": 1,
+        "run_id": "fractional-budget-too-small",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": null,
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "0.09",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "get_page_html",
+            "arguments": {
+              "url": "https://example.com"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "wrong-serp-parameter",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "block",
+      "plan": {
+        "version": 1,
+        "run_id": "wrong-serp-parameter",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": null,
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "1",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "search_google_serp",
+            "arguments": {
+              "query": "garden tools"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "gsc-alpha2-is-wrong",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "block",
+      "plan": {
+        "version": 1,
+        "run_id": "gsc-alpha2-is-wrong",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": "synthetic-brand",
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "0",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "get_gsc_top_queries",
+            "arguments": {
+              "brandId": "synthetic-brand",
+              "country": "us"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "cross-brand",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "block",
+      "plan": {
+        "version": 1,
+        "run_id": "cross-brand",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": "synthetic-brand",
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "0",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "get_brand_profile",
+            "arguments": {
+              "brandId": "synthetic-other"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "indexing-read-is-allowed",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "allow",
+      "plan": {
+        "version": 1,
+        "run_id": "indexing-read-is-allowed",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": "synthetic-brand",
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "0",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "get_gsc_indexing_status",
+            "arguments": {
+              "brandId": "synthetic-brand",
+              "urls": [
+                "https://example.com/guide"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "submission-is-not-a-read",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "block",
+      "plan": {
+        "version": 1,
+        "run_id": "submission-is-not-a-read",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": "synthetic-brand",
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "0",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "request_indexing",
+            "arguments": {
+              "brandId": "synthetic-brand",
+              "urls": [
+                "https://example.com/guide"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "opaque-unreviewed-input",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "block",
+      "plan": {
+        "version": 1,
+        "run_id": "opaque-unreviewed-input",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": null,
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "1",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "amazon_product_details",
+            "arguments": {
+              "unverified_name": "example"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "too-many-keywords",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "block",
+      "plan": {
+        "version": 1,
+        "run_id": "too-many-keywords",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": null,
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "3",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "get_keyword_volume",
+            "arguments": {
+              "keywords": [
+                "keyword-0",
+                "keyword-1",
+                "keyword-2",
+                "keyword-3",
+                "keyword-4",
+                "keyword-5",
+                "keyword-6",
+                "keyword-7",
+                "keyword-8",
+                "keyword-9",
+                "keyword-10",
+                "keyword-11",
+                "keyword-12",
+                "keyword-13",
+                "keyword-14",
+                "keyword-15",
+                "keyword-16",
+                "keyword-17",
+                "keyword-18",
+                "keyword-19",
+                "keyword-20"
+              ],
+              "country": "us"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "signed-url",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "block",
+      "plan": {
+        "version": 1,
+        "run_id": "signed-url",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": null,
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "1",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "get_page_content",
+            "arguments": {
+              "url": "https://example.com/image?token=private"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "image-is-not-a-read",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "block",
+      "plan": {
+        "version": 1,
+        "run_id": "image-is-not-a-read",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": null,
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "1",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "generate_image",
+            "arguments": {
+              "prompt": "A botanical illustration"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "unknown-tool",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "block",
+      "plan": {
+        "version": 1,
+        "run_id": "unknown-tool",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": null,
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "0",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "publish_article",
+            "arguments": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "empty-visibility-audit",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "block",
+      "plan": {
+        "version": 1,
+        "run_id": "empty-visibility-audit",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": null,
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "1",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "audit_page_citation_readiness",
+            "arguments": {
+              "urls": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "unknown-is-not-free",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "block",
+      "plan": {
+        "version": 1,
+        "run_id": "unknown-is-not-free",
+        "budget_group": "synthetic-account-cycle",
+        "scope": {
+          "brand_id": null,
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "read-only",
+        "limits": {
+          "platform_credits": "NaN",
+          "writer_words": 0,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "action",
+            "tool": "get_usage",
+            "arguments": {}
+          }
+        ]
+      }
+    },
+    {
+      "id": "standalone-draft-valid-not-approved",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "allow",
+      "plan": {
+        "version": 1,
+        "run_id": "synthetic-draft-001",
+        "budget_group": "synthetic-generation-cycle",
+        "scope": {
+          "brand_id": null,
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "draft",
+        "limits": {
+          "platform_credits": "0",
+          "writer_words": 6000,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "create",
+            "tool": "create_article_in_koala_writer",
+            "arguments": {
+              "articleType": "blog_post",
+              "targetKeyword": "rain garden basics",
+              "articleInstructions": "Use supported facts and make uncertainty explicit. Do not invent firsthand experience.",
+              "multimediaOption": "none",
+              "includeCta": false,
+              "shouldCiteSources": true,
+              "realTimeData": true,
+              "country": "us",
+              "language": "English",
+              "waitForCompletion": false
+            },
+            "operation_key": "rain-garden-basics-en-us-original",
+            "writer_word_reservation": 6000,
+            "verification": {
+              "tool": "get_article_content",
+              "checks": {
+                "content_present": true
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "attached-draft-can-publish",
+      "clock": "2026-10-01T12:00:00+00:00",
+      "expected": "block",
+      "plan": {
+        "version": 1,
+        "run_id": "synthetic-draft-001",
+        "budget_group": "synthetic-generation-cycle",
+        "scope": {
+          "brand_id": "synthetic-brand",
+          "domain": "example.com",
+          "account_ref": "synthetic-account"
+        },
+        "mode": "draft",
+        "limits": {
+          "platform_credits": "0",
+          "writer_words": 6000,
+          "max_calls": 10
+        },
+        "actions": [
+          {
+            "id": "create",
+            "tool": "create_article_in_koala_writer",
+            "arguments": {
+              "articleType": "blog_post",
+              "targetKeyword": "rain garden basics",
+              "articleInstructions": "Use supported facts and make uncertainty explicit. Do not invent firsthand experience.",
+              "multimediaOption": "none",
+              "includeCta": false,
+              "shouldCiteSources": true,
+              "realTimeData": true,
+              "country": "us",
+              "language": "English",
+              "waitForCompletion": false,
+              "brandId": "synthetic-brand"
+            },
+            "operation_key": "rain-garden-basics-en-us-original",
+            "writer_word_reservation": 6000,
+            "verification": {
+              "tool": "get_article_content",
+              "checks": {
+                "content_present": true
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "skill": "koala-budget",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 20,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "get_brand_profile",
+    "list_writer_presets",
+    "list_article_tasks"
+  ],
+  "required_outputs": [
+    "Credit estimate by action",
+    "Writer-word reservation and assumptions",
+    "Future scheduled commitments",
+    "Optional calls removed first",
+    "Budget stop condition"
+  ],
+  "stop_conditions": [
+    "Cannot establish a conservative generation reservation \u2192 produce research/briefs only and block generation.",
+    "Free tools still have rate limits. Bound status checks and Google reads even when credit cost is zero.",
+    "Image costs are separate: standalone fast 1 or quality 8 platform credits; Writer imagery is within Writer allowance, with effective generation settings still relevant."
+  ]
+}

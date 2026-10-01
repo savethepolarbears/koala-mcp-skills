@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "koala-ai": {
+      "url": "https://koala.sh/api/mcp"
+    }
+  }
+}

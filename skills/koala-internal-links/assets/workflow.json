@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "skill": "koala-internal-links",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 10,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "get_sitemap",
+    "get_page_content",
+    "get_gsc_top_pages",
+    "get_gsc_page_performance",
+    "check_keyword_coverage"
+  ],
+  "required_outputs": [
+    "Source-to-target edge table",
+    "Exact anchors and placement",
+    "Existing-link check status",
+    "Evidence and confidence",
+    "External implementation handoff"
+  ],
+  "stop_conditions": [
+    "Coverage says uncovered but a matching URL exists \u2192 inspect intent before suggesting another page.",
+    "Target is redirecting, stale or mismatched \u2192 hold the link until resolved.",
+    "No complete crawl \u2192 use possible underlinked page, not proven orphan."
+  ]
+}

@@ -1,0 +1,2805 @@
+{
+  "schema_version": 1,
+  "reviewed_at": "2026-10-01",
+  "source": "Koala MCP connector tool definitions and user-supplied 62-tool beta inventory",
+  "source_url": "https://koala.sh/mcp",
+  "transcription_notice": "Local conservative input contracts, NOT a byte-for-byte tools/list capture. Always inspect live definitions. Opaque inputs require a separate live review. Costs are snapshot estimates, not a billing guarantee.",
+  "tools": [
+    {
+      "name": "get_usage",
+      "group": "account",
+      "scope": "account",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Check platform credits and writer words separately. Reading a balance does not reserve it.",
+      "verification_tools": []
+    },
+    {
+      "name": "list_brands",
+      "group": "brand",
+      "scope": "account",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Resolve the brand deliberately. Do not copy account results into the public repository.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_brand_profile",
+      "group": "brand",
+      "scope": "brand",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Inspect integration and effective post status before generation; presets or project overrides can change them.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_brand_knowledge",
+      "group": "brand",
+      "scope": "brand",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Saved business facts are context, not independent verification of every claim. No knowledge-update tool is exposed.",
+      "verification_tools": []
+    },
+    {
+      "name": "list_writer_presets",
+      "group": "brand",
+      "scope": "brand",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Named preset settings replace defaults as a snapshot, not a shallow overlay. Use exact discovered names only.",
+      "verification_tools": []
+    },
+    {
+      "name": "list_article_tasks",
+      "group": "calendar",
+      "scope": "brand",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "draft",
+                  "scheduled",
+                  "running",
+                  "completed",
+                  "rejected",
+                  "failed"
+                ]
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "draft",
+                    "scheduled",
+                    "running",
+                    "completed",
+                    "rejected",
+                    "failed"
+                  ]
+                }
+              }
+            ]
+          },
+          "startDate": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string"
+          },
+          "dateScope": {
+            "type": "string",
+            "enum": [
+              "all",
+              "scheduled",
+              "undated"
+            ]
+          },
+          "sortBy": {
+            "type": "string",
+            "enum": [
+              "date",
+              "volume"
+            ]
+          },
+          "limit": {
+            "type": "number"
+          },
+          "initiativeId": {
+            "type": "string"
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "One status array is preferable to repeated one-status calls. Calendar coverage is separate from published coverage.",
+      "verification_tools": []
+    },
+    {
+      "name": "create_article_in_koala_writer",
+      "group": "writer",
+      "scope": "article",
+      "effect": "generate",
+      "cost": {
+        "kind": "words"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "presetName": {
+            "type": "string"
+          },
+          "articleType": {
+            "type": "string",
+            "enum": [
+              "blog_post",
+              "listicle",
+              "amazon_product_roundup",
+              "amazon_single_product_review",
+              "youtube_video",
+              "rewrite_blog_post",
+              "service_page"
+            ]
+          },
+          "articleInstructions": {
+            "type": "string"
+          },
+          "includeCta": {
+            "type": "boolean"
+          },
+          "ctaPrompt": {
+            "type": "string"
+          },
+          "articleLength": {
+            "type": "string",
+            "enum": [
+              "default",
+              "custom",
+              "shorter",
+              "smaller",
+              "short",
+              "medium",
+              "long",
+              "longer"
+            ]
+          },
+          "numberOfSections": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "includeFaq": {
+            "type": "boolean"
+          },
+          "projectId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "asin": {
+            "type": "string"
+          },
+          "articleUrl": {
+            "type": "string"
+          },
+          "youTubeVideoUrl": {
+            "type": "string"
+          },
+          "serviceArea": {
+            "type": "string"
+          },
+          "numberOfItems": {
+            "type": "integer"
+          },
+          "multimediaOption": {
+            "type": "string",
+            "enum": [
+              "none",
+              "auto",
+              "images",
+              "videos"
+            ]
+          },
+          "targetKeyword": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "title": {
+            "type": "string"
+          },
+          "toneOfVoiceProfile": {
+            "type": "string",
+            "enum": [
+              "seo_optimized",
+              "automatic",
+              "excited",
+              "professional",
+              "friendly",
+              "formal",
+              "casual",
+              "humorous"
+            ]
+          },
+          "pointOfView": {
+            "type": "string",
+            "enum": [
+              "first_person_singular",
+              "first_person_plural",
+              "second_person",
+              "third_person"
+            ]
+          },
+          "includeConclusion": {
+            "type": "boolean"
+          },
+          "includeKeyTakeaways": {
+            "type": "boolean"
+          },
+          "imageStyle": {
+            "type": "string",
+            "enum": [
+              "photo",
+              "illustration",
+              "watercolor",
+              "fantasy",
+              "anime",
+              "3d"
+            ]
+          },
+          "maxImages": {
+            "type": "number"
+          },
+          "maxVideos": {
+            "type": "number"
+          },
+          "realTimeData": {
+            "type": "boolean"
+          },
+          "realTimeDataSource": {
+            "type": "string",
+            "enum": [
+              "web",
+              "auto",
+              "scholarly",
+              "news"
+            ]
+          },
+          "shouldCiteSources": {
+            "type": "boolean"
+          },
+          "enableDeepResearch": {
+            "type": "boolean"
+          },
+          "extendedResearch": {
+            "type": "boolean"
+          },
+          "brandMentionLevel": {
+            "type": "string",
+            "enum": [
+              "prominent",
+              "subtle",
+              "none"
+            ]
+          },
+          "language": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "allowDuplicate": {
+            "type": "boolean"
+          },
+          "brandId": {
+            "type": "string"
+          },
+          "waitForCompletion": {
+            "type": "boolean"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Creation can upload or publish via brand/project integration. Omit both for standalone output. Never enable allowDuplicate without explicit authorization for another article. Persist articleId before waiting. Prompts cannot enable image pipeline settings.",
+      "verification_tools": [
+        "get_article_status",
+        "get_article_content"
+      ]
+    },
+    {
+      "name": "get_article_status",
+      "group": "writer",
+      "scope": "article",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "articleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "articleId"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Resume the same article ID. No tight polling loop and no replacement job after a timeout.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_article_content",
+      "group": "writer",
+      "scope": "article",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "articleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "variant": {
+            "type": "string",
+            "enum": [
+              "polished",
+              "original"
+            ]
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "articleId"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Polished falls back to original when no edited version exists. Read only account-owned articles; validate identity when no brand filter is used.",
+      "verification_tools": []
+    },
+    {
+      "name": "list_recent_articles",
+      "group": "writer",
+      "scope": "article",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Bounded recent results are not a complete article inventory. Ambiguous matches require disambiguation, not a guessed ID.",
+      "verification_tools": []
+    },
+    {
+      "name": "edit_article",
+      "group": "writer",
+      "scope": "article",
+      "effect": "edit",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "articleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "instruction": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "articleId",
+          "instruction"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "One platform credit, no writer words. Instructions are self-contained. Previous content is saved and concurrent edits rejected; do not assume a restore or CMS publish tool exists.",
+      "verification_tools": [
+        "get_article_content"
+      ]
+    },
+    {
+      "name": "schedule_articles",
+      "group": "calendar",
+      "scope": "brand",
+      "effect": "schedule",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "tasks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "new_content"
+                  ]
+                },
+                "keyword": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "scheduledDate": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "rationale": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "searchVolume": {
+                  "type": "number"
+                },
+                "competition": {
+                  "type": "string"
+                },
+                "notes": {
+                  "type": "string"
+                },
+                "initiativeId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "writerArgs": {
+                  "type": "object",
+                  "properties": {
+                    "presetName": {
+                      "type": "string"
+                    },
+                    "articleType": {
+                      "type": "string",
+                      "enum": [
+                        "blog_post",
+                        "listicle",
+                        "amazon_product_roundup",
+                        "amazon_single_product_review",
+                        "youtube_video",
+                        "rewrite_blog_post",
+                        "service_page"
+                      ]
+                    },
+                    "articleInstructions": {
+                      "type": "string"
+                    },
+                    "includeCta": {
+                      "type": "boolean"
+                    },
+                    "ctaPrompt": {
+                      "type": "string"
+                    },
+                    "articleLength": {
+                      "type": "string",
+                      "enum": [
+                        "default",
+                        "custom",
+                        "shorter",
+                        "smaller",
+                        "short",
+                        "medium",
+                        "long",
+                        "longer"
+                      ]
+                    },
+                    "numberOfSections": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 20
+                    },
+                    "includeFaq": {
+                      "type": "boolean"
+                    },
+                    "projectId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "asin": {
+                      "type": "string"
+                    },
+                    "articleUrl": {
+                      "type": "string"
+                    },
+                    "youTubeVideoUrl": {
+                      "type": "string"
+                    },
+                    "serviceArea": {
+                      "type": "string"
+                    },
+                    "numberOfItems": {
+                      "type": "integer"
+                    },
+                    "multimediaOption": {
+                      "type": "string",
+                      "enum": [
+                        "auto",
+                        "images",
+                        "videos"
+                      ]
+                    }
+                  },
+                  "required": [],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "title",
+                "keyword",
+                "scheduledDate",
+                "rationale"
+              ],
+              "additionalProperties": false
+            },
+            "minItems": 1,
+            "maxItems": 10
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "tasks"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Executable NEW-content tasks, not a planning list. Max 10. Future generation consumes words. Live settings at execution may cause publication. Autopilot entitlement is separate.",
+      "verification_tools": [
+        "list_article_tasks"
+      ]
+    },
+    {
+      "name": "update_scheduled_articles",
+      "group": "calendar",
+      "scope": "brand",
+      "effect": "schedule_update",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "updates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "taskId": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "keyword": {
+                  "type": "string",
+                  "minLength": 1,
+                  "pattern": "\\S"
+                },
+                "scheduledDate": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "notes": {
+                  "type": "string"
+                },
+                "writerArgs": {
+                  "type": "object",
+                  "properties": {
+                    "presetName": {
+                      "type": "string"
+                    },
+                    "articleType": {
+                      "type": "string",
+                      "enum": [
+                        "blog_post",
+                        "listicle",
+                        "amazon_product_roundup",
+                        "amazon_single_product_review",
+                        "youtube_video",
+                        "rewrite_blog_post",
+                        "service_page"
+                      ]
+                    },
+                    "articleInstructions": {
+                      "type": "string"
+                    },
+                    "includeCta": {
+                      "type": "boolean"
+                    },
+                    "ctaPrompt": {
+                      "type": "string"
+                    },
+                    "articleLength": {
+                      "type": "string",
+                      "enum": [
+                        "default",
+                        "custom",
+                        "shorter",
+                        "smaller",
+                        "short",
+                        "medium",
+                        "long",
+                        "longer"
+                      ]
+                    },
+                    "numberOfSections": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 20
+                    },
+                    "includeFaq": {
+                      "type": "boolean"
+                    },
+                    "projectId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "asin": {
+                      "type": "string"
+                    },
+                    "articleUrl": {
+                      "type": "string"
+                    },
+                    "youTubeVideoUrl": {
+                      "type": "string"
+                    },
+                    "serviceArea": {
+                      "type": "string"
+                    },
+                    "numberOfItems": {
+                      "type": "integer"
+                    },
+                    "multimediaOption": {
+                      "type": "string",
+                      "enum": [
+                        "auto",
+                        "images",
+                        "videos"
+                      ]
+                    }
+                  },
+                  "required": [],
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "taskId"
+              ],
+              "additionalProperties": false,
+              "minProperties": 2
+            },
+            "minItems": 1,
+            "maxItems": 20
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "updates"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Max 20, only not-started tasks. writerArgs replaces the entire override object; {} clears overrides. A reschedule changes execution/publication timing; inspect per-task failures.",
+      "verification_tools": [
+        "list_article_tasks"
+      ]
+    },
+    {
+      "name": "remove_scheduled_articles",
+      "group": "calendar",
+      "scope": "brand",
+      "effect": "cancel",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "taskIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "minItems": 1,
+            "maxItems": 50
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "taskIds"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Max 50. Cancels future scheduled work; does not delete running/completed jobs, saved articles or CMS posts. Reconcile unmatched IDs.",
+      "verification_tools": [
+        "list_article_tasks"
+      ]
+    },
+    {
+      "name": "generate_image",
+      "group": "images",
+      "scope": "account",
+      "effect": "generate_image",
+      "cost": {
+        "kind": "image",
+        "fast": "1",
+        "quality": "8"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 10000
+          },
+          "aspect": {
+            "type": "string",
+            "enum": [
+              "landscape",
+              "square",
+              "portrait",
+              "pinterest"
+            ]
+          },
+          "style": {
+            "type": "string",
+            "enum": [
+              "photo",
+              "illustration",
+              "watercolor",
+              "fantasy",
+              "anime",
+              "3d",
+              "isometric",
+              "none"
+            ]
+          },
+          "quality": {
+            "type": "string",
+            "enum": [
+              "fast",
+              "quality"
+            ]
+          },
+          "referenceImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            },
+            "maxItems": 5
+          }
+        },
+        "required": [
+          "prompt"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Hosted URL can precede completion. This neither inserts images into an article nor publishes a social post. Reference-image rights and privacy need review.",
+      "verification_tools": [
+        "public_asset_readback"
+      ]
+    },
+    {
+      "name": "get_gsc_search_performance",
+      "group": "gsc",
+      "scope": "brand",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 486
+          },
+          "startDate": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "device": {
+            "type": "string",
+            "enum": [
+              "DESKTOP",
+              "MOBILE",
+              "TABLET"
+            ]
+          },
+          "pageContains": {
+            "type": "string"
+          },
+          "queryContains": {
+            "type": "string"
+          },
+          "compare": {
+            "type": "boolean"
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Measured connected-property data. Explicit inclusive date pairs; equal periods and same filters. GSC country filters use alpha-3. Missing or truncated rows are not zero. compare=true is supported only on aggregate search performance.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_gsc_top_queries",
+      "group": "gsc",
+      "scope": "brand",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 486
+          },
+          "startDate": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "device": {
+            "type": "string",
+            "enum": [
+              "DESKTOP",
+              "MOBILE",
+              "TABLET"
+            ]
+          },
+          "pageContains": {
+            "type": "string"
+          },
+          "queryContains": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Measured connected-property data. Explicit inclusive date pairs; equal periods and same filters. GSC country filters use alpha-3. Missing or truncated rows are not zero. compare=true is supported only on aggregate search performance.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_gsc_top_pages",
+      "group": "gsc",
+      "scope": "brand",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 486
+          },
+          "startDate": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "device": {
+            "type": "string",
+            "enum": [
+              "DESKTOP",
+              "MOBILE",
+              "TABLET"
+            ]
+          },
+          "pageContains": {
+            "type": "string"
+          },
+          "queryContains": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Measured connected-property data. Explicit inclusive date pairs; equal periods and same filters. GSC country filters use alpha-3. Missing or truncated rows are not zero. compare=true is supported only on aggregate search performance.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_gsc_query_performance",
+      "group": "gsc",
+      "scope": "brand",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 486
+          },
+          "startDate": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string"
+          },
+          "query": {
+            "type": "string"
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Measured connected-property data. Explicit inclusive date pairs; equal periods and same filters. GSC country filters use alpha-3. Missing or truncated rows are not zero. compare=true is supported only on aggregate search performance.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_gsc_page_performance",
+      "group": "gsc",
+      "scope": "brand",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "days": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 486
+          },
+          "startDate": {
+            "type": "string"
+          },
+          "endDate": {
+            "type": "string"
+          },
+          "pageUrl": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "number"
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "pageUrl"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Measured connected-property data. Explicit inclusive date pairs; equal periods and same filters. GSC country filters use alpha-3. Missing or truncated rows are not zero. compare=true is supported only on aggregate search performance.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_gsc_indexing_status",
+      "group": "gsc",
+      "scope": "brand",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "maxItems": 10
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "urls"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Max 10 URLs belonging to the connected property. A sitemap entry is not indexation evidence.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_ga4_top_pages",
+      "group": "ga4",
+      "scope": "brand",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "dateRange": {
+            "type": "string"
+          },
+          "compareRange": {
+            "type": "string"
+          },
+          "brandId": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Measured connected GA4 data. dateRange/compareRange are not GSC startDate/endDate. Page performance takes a path, not a URL. Sessions and GSC clicks are different measures.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_ga4_traffic_sources",
+      "group": "ga4",
+      "scope": "brand",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "dateRange": {
+            "type": "string"
+          },
+          "compareRange": {
+            "type": "string"
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Measured connected GA4 data. dateRange/compareRange are not GSC startDate/endDate. Page performance takes a path, not a URL. Sessions and GSC clicks are different measures.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_ga4_audience_overview",
+      "group": "ga4",
+      "scope": "brand",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "dateRange": {
+            "type": "string"
+          },
+          "compareRange": {
+            "type": "string"
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Measured connected GA4 data. dateRange/compareRange are not GSC startDate/endDate. Page performance takes a path, not a URL. Sessions and GSC clicks are different measures.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_ga4_page_performance",
+      "group": "ga4",
+      "scope": "brand",
+      "effect": "read",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "dateRange": {
+            "type": "string"
+          },
+          "compareRange": {
+            "type": "string"
+          },
+          "brandId": {
+            "type": "string"
+          },
+          "pagePath": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "pagePath"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Measured connected GA4 data. dateRange/compareRange are not GSC startDate/endDate. Page performance takes a path, not a URL. Sessions and GSC clicks are different measures.",
+      "verification_tools": []
+    },
+    {
+      "name": "request_indexing",
+      "group": "submissions",
+      "scope": "brand",
+      "effect": "submit",
+      "cost": {
+        "kind": "free"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "maxItems": 20
+          },
+          "brandId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "urls"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Explicit separate submission authorization. Max 20. A successful request is not an indexing guarantee; do not substitute generic Google Indexing API claims.",
+      "verification_tools": [
+        "get_gsc_indexing_status"
+      ]
+    },
+    {
+      "name": "check_keyword_coverage",
+      "group": "keywords",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "3"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "minItems": 1,
+            "maxItems": 30
+          },
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "country": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "keywords",
+          "domain"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Max 30. Model judgments from sitemap/ranking evidence; not planned tasks and not proof of absence. Inspect matched URL and intent before replacement.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_keyword_volume",
+      "group": "keywords",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "3"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "minItems": 1,
+            "maxItems": 20
+          },
+          "country": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "keywords"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Max 20 per market. Provider estimates. Advertising competition/CPC are not organic difficulty or affiliate earnings.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_related_keywords",
+      "group": "keywords",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "per_unique_seed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "minItems": 1,
+            "maxItems": 5
+          },
+          "minVolume": {
+            "type": "number"
+          },
+          "country": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "keywords"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Max 5 seeds. Bills per successful unique trimmed seed; reserve all unique seeds conservatively. Related terms are not automatically new content intents.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_keyword_variations",
+      "group": "keywords",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "per_unique_seed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "minItems": 1,
+            "maxItems": 5
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 30
+          },
+          "minVolume": {
+            "type": "number"
+          },
+          "country": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "keywords"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Max 5 seeds. Variations contain the seed; do not confuse variants with distinct intents. Paid per successful unique trimmed seed.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_autocomplete",
+      "group": "keywords",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "0.25"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "This exposed input surface has no country/language arguments. Record market as provider-default/unknown rather than invent parameters. Suggestions are not volumes.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_keyword_gap",
+      "group": "keywords",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "competitor": {
+            "type": "string"
+          },
+          "yourDomain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "minVolume": {
+            "type": "number"
+          },
+          "country": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "competitor",
+          "yourDomain"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Ranking gap does not establish a content gap. Check the target site and its calendar.",
+      "verification_tools": []
+    },
+    {
+      "name": "discover_domain_keywords",
+      "group": "keywords",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "minVolume": {
+            "type": "number"
+          },
+          "competitionLevel": {
+            "type": "string",
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH"
+            ]
+          },
+          "country": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "domain"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Ideas related to a niche, not a ranking inventory. Avoid speculative keyword-to-revenue conversion.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_ranking_keywords",
+      "group": "keywords",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "minPosition": {
+            "type": "number"
+          },
+          "maxPosition": {
+            "type": "number"
+          },
+          "minVolume": {
+            "type": "number"
+          },
+          "keywordContains": {
+            "type": "string"
+          },
+          "keywordMatchType": {
+            "type": "string",
+            "enum": [
+              "exact",
+              "broad"
+            ]
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "country": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Provider-observed rankings are separate from GSC. Exact keywordContains is whole-word; broad is substring.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_competitor_domains",
+      "group": "competitors",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          },
+          "country": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "domain"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Search competitors may have different business models. Validate relevance before a teardown.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_estimated_top_pages",
+      "group": "competitors",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "country": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "domain"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Estimated organic traffic/value, not measured visits or revenue. Confirm page intent with a fetch.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_traffic_overview",
+      "group": "competitors",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "country": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "domain"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Directional provider estimates, not connected first-party metrics.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_historical_traffic",
+      "group": "competitors",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "4"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "months": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 24
+          },
+          "country": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "domain"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Higher-cost monthly estimates. Use only when a time-series question changes the decision; align markets and periods.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_domain_authority",
+      "group": "competitors",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          }
+        },
+        "required": [
+          "domain"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Moz Domain Authority, not a Google metric and not the backlink provider rank.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_backlink_summary",
+      "group": "backlinks",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "2"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "includeSubdomains": {
+            "type": "boolean"
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Provider totals and referring domains; avoid conflating domains with individual links.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_referring_domains",
+      "group": "backlinks",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "2"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "sortBy": {
+            "type": "string",
+            "enum": [
+              "authority",
+              "recent",
+              "oldest"
+            ]
+          },
+          "onlyDofollow": {
+            "type": "boolean"
+          },
+          "onlyBroken": {
+            "type": "boolean"
+          },
+          "linkType": {
+            "type": "string"
+          },
+          "domainFrom": {
+            "type": "string"
+          },
+          "firstSeenAfter": {
+            "type": "string"
+          },
+          "firstSeenBefore": {
+            "type": "string"
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "A domain includes only a sample backlink, not every link. Provider rank is not Moz DA. Broken links are candidates needing current verification.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_backlink_list",
+      "group": "backlinks",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "2"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "sortBy": {
+            "type": "string",
+            "enum": [
+              "authority",
+              "recent",
+              "oldest"
+            ]
+          },
+          "onlyDofollow": {
+            "type": "boolean"
+          },
+          "onlyBroken": {
+            "type": "boolean"
+          },
+          "linkType": {
+            "type": "string",
+            "enum": [
+              "image",
+              "anchor",
+              "redirect"
+            ]
+          },
+          "domainFrom": {
+            "type": "string"
+          },
+          "firstSeenAfter": {
+            "type": "string"
+          },
+          "firstSeenBefore": {
+            "type": "string"
+          },
+          "freshData": {
+            "type": "boolean"
+          },
+          "onlyLost": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Individual link records. First seen is discovery time, not publication time; lost is provider-observed, not independently confirmed.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_anchor_texts",
+      "group": "backlinks",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "2"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "target"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Do not infer a penalty from an anchor-text ratio alone.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_backlink_gap",
+      "group": "backlinks",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "2"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "competitor": {
+            "type": "string"
+          },
+          "yourDomain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "competitor",
+          "yourDomain"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "One competitor per call. Candidates are not endorsements or guaranteed placements; no outreach-sending tool is included.",
+      "verification_tools": []
+    },
+    {
+      "name": "search_google_serp",
+      "group": "serp_trends",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "0.5"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "include": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "raw": {
+            "type": "boolean"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10
+          },
+          "language": {
+            "type": "string"
+          },
+          "freshData": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "keyword"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Use keyword, not query. Locality uses location; there is no country input here. Fetch sources to verify precise claims; snippets are discovery evidence.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_google_trends",
+      "group": "serp_trends",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "minItems": 1,
+            "maxItems": 5
+          },
+          "timeRange": {
+            "type": "string",
+            "enum": [
+              "past_30_days",
+              "past_90_days",
+              "past_12_months",
+              "past_5_years"
+            ]
+          },
+          "country": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "web",
+              "youtube",
+              "news",
+              "froogle"
+            ]
+          }
+        },
+        "required": [
+          "keywords"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Relative 0\u2013100 interest, not monthly volume. Cross-call normalization can differ. Preserve market and search surface.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_pinterest_trends",
+      "group": "serp_trends",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "0.1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": [
+              "all",
+              "food_and_drink",
+              "beauty",
+              "home_decor",
+              "fashion",
+              "travel",
+              "art",
+              "quotes",
+              "entertainment",
+              "diy_and_crafts",
+              "health",
+              "weddings",
+              "event_planning",
+              "gardening",
+              "animals",
+              "parenting",
+              "education",
+              "vehicles",
+              "design",
+              "sports",
+              "electronics",
+              "finance",
+              "architecture"
+            ]
+          },
+          "country": {
+            "type": "string"
+          },
+          "trendsPreset": {
+            "type": "string",
+            "enum": [
+              "growing",
+              "seasonal",
+              "top_monthly",
+              "top_yearly"
+            ]
+          },
+          "endDate": {
+            "type": "string"
+          },
+          "keywordsToInclude": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Pinterest interest is not Google volume. Seasonal future dates are planning signals, not observed future demand.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_sitemap",
+      "group": "pages",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "0.25"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50000
+          }
+        },
+        "required": [
+          "domain"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Default 1,000, up to 50,000 slugs; 90-second/200-child bounds. returnedSlugCount is returned inventory, not site total. No proof of indexation or orphan status.",
+      "verification_tools": []
+    },
+    {
+      "name": "screenshot_page",
+      "group": "pages",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "0.25"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "fullPage": {
+            "type": "boolean"
+          },
+          "mobile": {
+            "type": "boolean"
+          },
+          "width": {
+            "type": "number"
+          },
+          "height": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Visual inspection only. Does not prove full markup or crawler access; mobile overrides desktop dimensions.",
+      "verification_tools": []
+    },
+    {
+      "name": "search_youtube",
+      "group": "pages",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "0.1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          }
+        },
+        "required": [
+          "query"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Search results do not contain the full video. Inspect captions and usage rights separately.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_youtube_captions",
+      "group": "pages",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "0.25"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "videoId": {
+            "type": "string"
+          },
+          "maxLength": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100000
+          }
+        },
+        "required": [
+          "videoId"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Caption text can be automatic and incomplete. Verify exact names and factual claims; captions are not reuse rights.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_page_content",
+      "group": "pages",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "0.25"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "contentHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Up to 100,000 characters per returned chunk. Continue with returned nextOffset and same contentHash; every chunk costs credits. Changed hash requires restart. Extracted text can omit important markup; not finding a fact does not prove absence.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_page_html",
+      "group": "pages",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "0.1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "contentHash": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Up to 250,000 characters per returned chunk. Continue with returned nextOffset and same contentHash; every chunk costs credits. Changed hash requires restart. Raw HTML is not JavaScript-rendered.",
+      "verification_tools": []
+    },
+    {
+      "name": "analyze_page",
+      "group": "pages",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "prompt": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "prompt"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Source-derived analyst answer, not a complete deterministic SEO audit. Analyst sees up to 24,000 extracted characters; verify critical facts against source text/HTML.",
+      "verification_tools": []
+    },
+    {
+      "name": "check_ai_crawler_robots_rules",
+      "group": "pages",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "0.1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          }
+        },
+        "required": [
+          "domain"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Declared crawler-specific robots rules, not a network/firewall test or an AI-engine visibility measurement.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_google_ai_overview_presence",
+      "group": "ai_visibility",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "minItems": 1,
+            "maxItems": 5
+          },
+          "urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 3
+          }
+        },
+        "required": [
+          "domain",
+          "keywords"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Sampled Google AI Overviews only, not ChatGPT/Claude/all AI. This exposed schema has no country/language input; disclose unknown provider market. Absent citation is sample absence.",
+      "verification_tools": []
+    },
+    {
+      "name": "get_ai_search_opportunities",
+      "group": "ai_visibility",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "3"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "minItems": 1,
+            "maxItems": 3
+          },
+          "country": {
+            "type": "string"
+          },
+          "language": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "domain",
+          "keywords"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Max 3 seeds. Opportunity hypotheses, not observed all-engine visibility.",
+      "verification_tools": []
+    },
+    {
+      "name": "audit_page_citation_readiness",
+      "group": "ai_visibility",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 3
+          }
+        },
+        "required": [
+          "urls"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Heuristic 0\u2013100 readiness score, not an observed citation rate or guarantee. Use a nonempty set of max 3 URLs.",
+      "verification_tools": []
+    },
+    {
+      "name": "compare_google_ai_overview_citations",
+      "group": "ai_visibility",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "competitors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 3
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "pattern": "\\S"
+            },
+            "minItems": 1,
+            "maxItems": 5
+          }
+        },
+        "required": [
+          "domain",
+          "competitors",
+          "keywords"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Up to 3 competitors and 5 queries. Preserve the sampled query set; no market argument exposed. Do not broaden findings to all AI engines.",
+      "verification_tools": []
+    },
+    {
+      "name": "search_brand_mentions",
+      "group": "ai_visibility",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "\\S"
+          },
+          "brandName": {
+            "type": "string"
+          },
+          "competitors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "domain",
+          "brandName"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Web search mentions, not AI-chat mentions or an exhaustive count. Inspect source pages before assigning sentiment.",
+      "verification_tools": []
+    },
+    {
+      "name": "amazon_search",
+      "group": "shopping",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string"
+          },
+          "amazonDomain": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "keyword"
+        ],
+        "additionalProperties": false
+      },
+      "contract_status": "reviewed-conservative-transcription",
+      "notes": "Resolve candidate ASINs in the requested marketplace. No guarantee of current price, stock or testing.",
+      "verification_tools": []
+    },
+    {
+      "name": "amazon_product_details",
+      "group": "shopping",
+      "scope": "public",
+      "effect": "read",
+      "cost": {
+        "kind": "fixed",
+        "credits": "1"
+      },
+      "input_contract": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": false
+      },
+      "contract_status": "opaque-requires-live-review",
+      "notes": "Connector exposed an unconstrained argument object. Discover and inspect the live tool before invocation; no ASIN argument name is asserted by this pack. Returned price may be absent; attribute reviewer observations.",
+      "verification_tools": []
+    }
+  ]
+}

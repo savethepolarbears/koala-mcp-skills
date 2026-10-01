@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "skill": "koala-schema-watch",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 1,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage"
+  ],
+  "required_outputs": [
+    "Input-shape diff",
+    "Permission versus removal classification",
+    "Semantic/cost review checklist",
+    "Affected skills and tests",
+    "Reviewed update proposal"
+  ],
+  "stop_conditions": [
+    "Tool missing after scope change \u2192 investigate capability filters before marking removed.",
+    "Opaque amazon_product_details input \u2192 require live inspection; no fabricated schema.",
+    "Descriptions change publication behavior without shape changes \u2192 manual semantic review still blocks unsafe assumptions."
+  ]
+}

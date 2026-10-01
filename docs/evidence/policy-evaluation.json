@@ -1,0 +1,220 @@
+{
+  "passed": true,
+  "cases": 18,
+  "passed_cases": 18,
+  "llm_evaluation": false,
+  "network_calls": 0,
+  "results": [
+    {
+      "id": "free-read",
+      "expected": "allow",
+      "observed": "allow",
+      "passed": true,
+      "reason": "",
+      "summary": {
+        "plan_sha256": "e801b5f28635e20a378b9d3355f6c8e9c73e4e86a0fc786778ac8291ae502f6c",
+        "credits": "0",
+        "words": 0,
+        "calls": 1,
+        "effects": [],
+        "actions": [
+          {
+            "id": "action",
+            "tool": "get_usage",
+            "effect": "read",
+            "credits": "0",
+            "words": 0
+          }
+        ],
+        "notice": "Estimated LOCAL reservations, not actual Koala billing or network authorization."
+      }
+    },
+    {
+      "id": "paid-without-budget",
+      "expected": "block",
+      "observed": "block",
+      "passed": true,
+      "reason": "Planned reservation exceeds the credit or writer-word ceiling",
+      "summary": null
+    },
+    {
+      "id": "fractional-budget-exact",
+      "expected": "allow",
+      "observed": "allow",
+      "passed": true,
+      "reason": "",
+      "summary": {
+        "plan_sha256": "607e8a092decdaa243fc2a01857b6ea7dc8ade842ac74abaf71e29b54325d20e",
+        "credits": "0.1",
+        "words": 0,
+        "calls": 1,
+        "effects": [],
+        "actions": [
+          {
+            "id": "action",
+            "tool": "get_page_html",
+            "effect": "read",
+            "credits": "0.1",
+            "words": 0
+          }
+        ],
+        "notice": "Estimated LOCAL reservations, not actual Koala billing or network authorization."
+      }
+    },
+    {
+      "id": "fractional-budget-too-small",
+      "expected": "block",
+      "observed": "block",
+      "passed": true,
+      "reason": "Planned reservation exceeds the credit or writer-word ceiling",
+      "summary": null
+    },
+    {
+      "id": "wrong-serp-parameter",
+      "expected": "block",
+      "observed": "block",
+      "passed": true,
+      "reason": "arguments: missing ['keyword']",
+      "summary": null
+    },
+    {
+      "id": "gsc-alpha2-is-wrong",
+      "expected": "block",
+      "observed": "block",
+      "passed": true,
+      "reason": "GSC country uses alpha-3, not keyword-tool alpha-2",
+      "summary": null
+    },
+    {
+      "id": "cross-brand",
+      "expected": "block",
+      "observed": "block",
+      "passed": true,
+      "reason": "Cross-brand arguments do not match the locked scope",
+      "summary": null
+    },
+    {
+      "id": "indexing-read-is-allowed",
+      "expected": "allow",
+      "observed": "allow",
+      "passed": true,
+      "reason": "",
+      "summary": {
+        "plan_sha256": "f14af50f25c2d85d71c27b24736f9dc33c7f3b41f91a6c33fcf205cc632b270b",
+        "credits": "0",
+        "words": 0,
+        "calls": 1,
+        "effects": [],
+        "actions": [
+          {
+            "id": "action",
+            "tool": "get_gsc_indexing_status",
+            "effect": "read",
+            "credits": "0",
+            "words": 0
+          }
+        ],
+        "notice": "Estimated LOCAL reservations, not actual Koala billing or network authorization."
+      }
+    },
+    {
+      "id": "submission-is-not-a-read",
+      "expected": "block",
+      "observed": "block",
+      "passed": true,
+      "reason": "request_indexing is not permitted in read-only mode",
+      "summary": null
+    },
+    {
+      "id": "opaque-unreviewed-input",
+      "expected": "block",
+      "observed": "block",
+      "passed": true,
+      "reason": "amazon_product_details: opaque connector input; inspect live schema and explicitly record review",
+      "summary": null
+    },
+    {
+      "id": "too-many-keywords",
+      "expected": "block",
+      "observed": "block",
+      "passed": true,
+      "reason": "arguments.keywords: array length outside reviewed bounds",
+      "summary": null
+    },
+    {
+      "id": "signed-url",
+      "expected": "block",
+      "observed": "block",
+      "passed": true,
+      "reason": "Signed or secret-bearing URL requires a separate trusted workflow; do not send it to Koala",
+      "summary": null
+    },
+    {
+      "id": "image-is-not-a-read",
+      "expected": "block",
+      "observed": "block",
+      "passed": true,
+      "reason": "generate_image is not permitted in read-only mode",
+      "summary": null
+    },
+    {
+      "id": "unknown-tool",
+      "expected": "block",
+      "observed": "block",
+      "passed": true,
+      "reason": "Unknown/unreviewed Koala tool: publish_article",
+      "summary": null
+    },
+    {
+      "id": "empty-visibility-audit",
+      "expected": "block",
+      "observed": "block",
+      "passed": true,
+      "reason": "Select at least one URL",
+      "summary": null
+    },
+    {
+      "id": "unknown-is-not-free",
+      "expected": "block",
+      "observed": "block",
+      "passed": true,
+      "reason": "Credit amount must be a nonnegative finite decimal",
+      "summary": null
+    },
+    {
+      "id": "standalone-draft-valid-not-approved",
+      "expected": "allow",
+      "observed": "allow",
+      "passed": true,
+      "reason": "",
+      "summary": {
+        "plan_sha256": "2ab42c0908fd434f3ac1a4e01b21d3007ed9a11c58ebe82499f358a2ec674ec9",
+        "credits": "0",
+        "words": 6000,
+        "calls": 1,
+        "effects": [
+          "generate"
+        ],
+        "actions": [
+          {
+            "id": "create",
+            "tool": "create_article_in_koala_writer",
+            "effect": "generate",
+            "credits": "0",
+            "words": 6000
+          }
+        ],
+        "notice": "Estimated LOCAL reservations, not actual Koala billing or network authorization."
+      }
+    },
+    {
+      "id": "attached-draft-can-publish",
+      "expected": "block",
+      "observed": "block",
+      "passed": true,
+      "reason": "Attached generation/scheduling can publish; connected-write authorization is required",
+      "summary": null
+    }
+  ],
+  "notice": "Deterministic local policy fixtures only. No host-agent scenario, OAuth flow or remote call was executed."
+}

@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "skill": "koala-page-refresh",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 1,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_gsc_page_performance",
+    "get_gsc_query_performance",
+    "get_gsc_indexing_status",
+    "get_page_content",
+    "get_page_html",
+    "search_google_serp",
+    "check_keyword_coverage",
+    "get_brand_profile",
+    "get_brand_knowledge",
+    "create_article_in_koala_writer",
+    "get_article_status",
+    "get_article_content",
+    "edit_article"
+  ],
+  "required_outputs": [
+    "Original-page evidence",
+    "Keep/change/remove/verify map",
+    "Query-to-section rationale",
+    "Reviewable patch or saved draft",
+    "CMS handoff and post-change measurement plan"
+  ],
+  "stop_conditions": [
+    "Non-indexed/canonicalized page \u2192 investigate that technical condition before spending on a long rewrite.",
+    "Two pages compete for one intent \u2192 propose consolidation review; do not delete/redirect either with unavailable tools.",
+    "No verified firsthand evidence \u2192 use researched wording and remove invented tested/visited claims."
+  ]
+}

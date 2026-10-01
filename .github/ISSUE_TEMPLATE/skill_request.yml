@@ -1,0 +1,17 @@
+name: Skill improvement
+description: Propose a concrete reusable Koala outcome.
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: User outcome and current failure
+      description: Describe the job, available tools, evidence and stop condition.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Synthetic example and pressure case
+      description: Include one ordinary request and one risky or ambiguous case.
+    validations:
+      required: true

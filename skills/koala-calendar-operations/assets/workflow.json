@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "skill": "koala-calendar-operations",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 10,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "get_brand_profile",
+    "list_writer_presets",
+    "list_article_tasks",
+    "schedule_articles",
+    "update_scheduled_articles",
+    "remove_scheduled_articles"
+  ],
+  "required_outputs": [
+    "Approved per-task diff",
+    "Delivery and live-setting risk evidence",
+    "Per-task execution receipt",
+    "Read-back match/mismatch table",
+    "Unresolved subset only"
+  ],
+  "stop_conditions": [
+    "Task running/completed \u2192 do not try to update/remove it through pre-start calendar operations.",
+    "Mixed results \u2192 reconcile the successful subset and propose a new approval only for verified outstanding work.",
+    "User requested no possible future publication \u2192 keep a local plan instead of scheduling with live inherited integration settings."
+  ]
+}

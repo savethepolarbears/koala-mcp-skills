@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "skill": "koala-portfolio-loop",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 10,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "list_brands",
+    "get_brand_profile",
+    "get_brand_knowledge",
+    "list_writer_presets",
+    "list_article_tasks",
+    "get_gsc_search_performance",
+    "get_ga4_top_pages"
+  ],
+  "required_outputs": [
+    "Brand-scoped action register",
+    "Shared budget ledger summary",
+    "Canary and review evidence",
+    "Pending/blocked operations",
+    "Next human decision"
+  ],
+  "stop_conditions": [
+    "One brand is blocked \u2192 isolate that chain and continue only already-authorized independent reads.",
+    "Shared credit ceiling reached \u2192 stop all paid branches, not start a new budget group.",
+    "Review capacity is full \u2192 stop generation even if Writer words remain."
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "skill": "koala-video-to-article",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 1,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "search_youtube",
+    "get_youtube_captions",
+    "get_page_content",
+    "check_keyword_coverage",
+    "create_article_in_koala_writer",
+    "get_article_status",
+    "get_article_content"
+  ],
+  "required_outputs": [
+    "Source and rights context",
+    "Caption completeness/quality",
+    "Verified outline",
+    "Generation receipt when authorized",
+    "Fidelity and attribution review"
+  ],
+  "stop_conditions": [
+    "Captions missing or unsuitable \u2192 return a brief or request a supplied transcript; do not invent it.",
+    "No evidence for a claimed scene \u2192 omit the visual description.",
+    "Non-English captions \u2192 do not silently pass them to an English-only Writer path."
+  ]
+}

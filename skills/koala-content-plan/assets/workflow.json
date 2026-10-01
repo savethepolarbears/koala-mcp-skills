@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "skill": "koala-content-plan",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 10,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_brand_profile",
+    "get_brand_knowledge",
+    "list_writer_presets",
+    "list_article_tasks",
+    "get_gsc_top_pages",
+    "check_keyword_coverage",
+    "get_keyword_volume"
+  ],
+  "required_outputs": [
+    "Proposed non-executable calendar",
+    "Intent registry with existing/planned overlap",
+    "Capacity and cost assumptions",
+    "One canary row",
+    "Approval-ready scheduling subset, not submitted"
+  ],
+  "stop_conditions": [
+    "No known review capacity \u2192 propose a small canary and keep the remainder unscheduled.",
+    "A scheduling request contains refresh/merge/outreach work \u2192 separate it; schedule_articles accepts new articles only.",
+    "Conflicting default and named preset \u2192 inspect exact saved preset; do not invent a preset name or assume overlay semantics."
+  ]
+}

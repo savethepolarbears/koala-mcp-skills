@@ -1,0 +1,17 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "koala-mcp-skills",
+  "version": "0.1.0",
+  "description": "Evidence-first Koala MCP workflows with bounded loops, budget checks and publication-aware approvals.",
+  "author": {
+    "name": "Koala MCP Skills contributors"
+  },
+  "license": "MIT",
+  "keywords": [
+    "koala",
+    "mcp",
+    "seo",
+    "content-operations",
+    "agent-skills"
+  ]
+}

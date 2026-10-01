@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "skill": "koala-connect",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 3,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "list_brands",
+    "get_brand_profile",
+    "list_writer_presets"
+  ],
+  "required_outputs": [
+    "Host and server identity",
+    "Observed capability groups",
+    "Explicit accessible-brand selection",
+    "Integration/publication-risk note",
+    "Read-only smoke-test evidence"
+  ],
+  "stop_conditions": [
+    "Public Koala pages and supplied launch materials can differ about beta plan eligibility. Check the current account eligibility screen; do not hard-code a paid tier.",
+    "401/authorization issue \u2192 reauthorize in the trusted host. Missing tools \u2192 inspect capability selection and start a new session after changes. Do not cycle OAuth or spend paid queries as a connectivity probe.",
+    "Brandless article reading/writing can exist independently of Brand DNA; connected Google tools cannot."
+  ]
+}

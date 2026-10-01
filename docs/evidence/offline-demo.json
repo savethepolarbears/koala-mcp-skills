@@ -1,0 +1,82 @@
+{
+  "simulation": true,
+  "network_calls": 0,
+  "real_credits_spent": 0,
+  "real_writer_words_spent": 0,
+  "planned_reservation": {
+    "plan_sha256": "c7a075ab363964b6aeb28d0ac8792a86dad433517768e38a1dc08cb2e2434bfd",
+    "credits": "0.25",
+    "words": 0,
+    "calls": 2,
+    "effects": [],
+    "actions": [
+      {
+        "id": "budget",
+        "tool": "get_usage",
+        "effect": "read",
+        "credits": "0",
+        "words": 0
+      },
+      {
+        "id": "inventory",
+        "tool": "get_sitemap",
+        "effect": "read",
+        "credits": "0.25",
+        "words": 0
+      }
+    ],
+    "notice": "Estimated LOCAL reservations, not actual Koala billing or network authorization."
+  },
+  "duplicate_claim_blocked": true,
+  "comparison": {
+    "clicks_delta": -30.0,
+    "clicks_pct": -30.0,
+    "impressions_delta": -100.0,
+    "impressions_pct": -10.0,
+    "ctr_previous": 0.1,
+    "ctr_current": 0.07777777777777778,
+    "notice": "Missing values remain null. CTR is clicks/impressions, not an average of row CTRs. Changes do not establish causality."
+  },
+  "intent_check": {
+    "keyword": " Rain Garden ",
+    "normalized": "rain garden",
+    "decision": "skip",
+    "reason": "Exact normalized intent already planned",
+    "matched_urls": [],
+    "semantic_overlap": "not determined by this exact-match helper"
+  },
+  "ledger": {
+    "budget_groups": [
+      {
+        "group_id": "synthetic-account-cycle",
+        "credits_cap": "1",
+        "words_cap": 0,
+        "calls_cap": 5,
+        "credits_reserved": "0.25",
+        "words_reserved": 0,
+        "calls_reserved": 2
+      }
+    ],
+    "actions": [
+      {
+        "run_id": "offline-demo",
+        "action_id": "budget",
+        "tool": "get_usage",
+        "effect": "read",
+        "status": "recorded",
+        "external_id": null
+      },
+      {
+        "run_id": "offline-demo",
+        "action_id": "inventory",
+        "tool": "get_sitemap",
+        "effect": "read",
+        "status": "recorded",
+        "external_id": null
+      }
+    ],
+    "event_count": 4,
+    "notice": "Reserved estimates only. Not an account balance, receipt authenticity check or global exactly-once guarantee."
+  },
+  "notice": "Synthetic fixture results only. This does not test Koala authentication, server execution or host skill loading."
+}

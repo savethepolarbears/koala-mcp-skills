@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "koala-ai": {
+      "type": "http",
+      "url": "https://koala.sh/api/mcp"
+    }
+  }
+}

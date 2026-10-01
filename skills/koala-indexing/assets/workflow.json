@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "skill": "koala-indexing",
+  "executable": false,
+  "description": "Declarative host-agent workflow; no automatic scheduler or tool transport.",
+  "limits": {
+    "max_items": 20,
+    "max_read_attempts_per_action": 2,
+    "max_automatic_write_retries": 0,
+    "max_stagnant_iterations": 2
+  },
+  "stages": [
+    "scope",
+    "discover",
+    "plan",
+    "authorize-if-effectful",
+    "claim",
+    "call",
+    "record",
+    "read-back",
+    "decide"
+  ],
+  "terminal_states": [
+    "completed",
+    "blocked",
+    "pending",
+    "needs-approval"
+  ],
+  "tools": [
+    "get_usage",
+    "get_brand_profile",
+    "get_gsc_indexing_status",
+    "request_indexing",
+    "get_page_content",
+    "get_page_html"
+  ],
+  "required_outputs": [
+    "Eligible URL/property register",
+    "Pre-submission evidence",
+    "Explicit approved targets",
+    "Per-URL receipt",
+    "Indexing status versus submission distinction"
+  ],
+  "stop_conditions": [
+    "User asked only for indexing status \u2192 never submit.",
+    "Wrong connected property or nonpublic URL \u2192 block and correct scope.",
+    "Submission accepted but inspection unchanged \u2192 report both; do not claim indexed."
+  ]
+}
